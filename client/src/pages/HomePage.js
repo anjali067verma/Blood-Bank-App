@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Spinners from '../components/shared/Spinners';
@@ -11,21 +11,26 @@ const HomePage = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     //get function
-    const getBloodRecord = async () => {
+    const getBloodRecord = useCallback(async () => {
         try {
             const { data } = await API.get('/inventory/get-inventory');
             if (data?.success) {
                 setData(data?.inventory);
             }
         } catch (error) {
+            console.log(error);
         }
-    };
+    },[]);
     useEffect(() => {
         getBloodRecord();
-    }, []);
+    }, [getBloodRecord]);
+    useEffect(() => {
+        if (user?.role === 'admin') {
+            navigate('/admin');
+        }
+    }, [user, navigate]);
     return (
         <Layout>
-            {user?.role === 'admin' && navigate('/admin')}
             {error && <span>{alert(error)}</span>}
             {loading ? (<Spinners />) : (
                 <>
