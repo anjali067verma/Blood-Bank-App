@@ -32,6 +32,7 @@ export const userRegister = createAsyncThunk(
             if (data?.success) {
                 alert("User Registered Successfully");
                 window.location.replace("/login");
+                return { user: data.user }; 
             }
         } catch (error) {
             if (error.response && error.response.data.message) {
@@ -53,6 +54,7 @@ export const userLogin = createAsyncThunk(
                 alert(data.message);
                 localStorage.setItem("token", data.token);
                 window.location.replace("/");
+                return { user: data.user, token: data.token };
             }
             return data;
         } catch (error) {
