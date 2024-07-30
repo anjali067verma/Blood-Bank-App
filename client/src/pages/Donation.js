@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useCallback } from 'react'
 import { useSelector } from 'react-redux';
 import API from '../services/API';
 import Layout from '../components/shared/Layout/Layout';
@@ -7,7 +7,7 @@ const Donation = () => {
     const { user } = useSelector((state) => state.auth);
     const [data, setData] = useState([]);
     //find donar records
-    const getDonars = async () => {
+    const getDonars = useCallback(async () => {
         try {
             const { data } = await API.post('/inventory/get-inventory-hospital', {
                 filters: {
@@ -20,10 +20,10 @@ const Donation = () => {
             }
         } catch (error) {
         }
-    };
+    },[user?._id]);
     useEffect(() => {
         getDonars();
-    }, []);
+    }, [getDonars]);
     return (
         <Layout>
             <div className='container mt-4'>
