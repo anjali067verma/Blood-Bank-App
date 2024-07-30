@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../../services/API";
-import { toast } from "react-toastify";
 //register
 export const userRegister = createAsyncThunk(
     "auth/register",
@@ -31,7 +30,7 @@ export const userRegister = createAsyncThunk(
                 website,
             });
             if (data?.success) {
-                alert("User Registerd Successfully");
+                alert("User Registered Successfully");
                 window.location.replace("/login");
             }
         } catch (error) {
