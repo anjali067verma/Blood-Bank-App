@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Layout from '../../components/shared/Layout/Layout';
 import API from '../../services/API';
 import moment from 'moment';
@@ -8,7 +8,7 @@ const Organisations = () => {
     const { user } = useSelector((state) => state.auth);
     const [data, setData] = useState([]);
     //find organisations records
-    const getOrgs = async () => {
+    const getOrgs = useCallback(async () => {
         try {
             if (user?.role === 'donar') {
                 const { data } = await API.get('/inventory/get-organisation');
@@ -25,10 +25,10 @@ const Organisations = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    },[user]);
     useEffect(() => {
         getOrgs();
-    }, [user]);
+    }, [getOrgs]);
     return (
         <Layout>
             <table className="table">
