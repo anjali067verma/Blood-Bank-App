@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Layout from '../../components/shared/Layout/Layout'
 import API from '../../services/API';
 import moment from 'moment';
@@ -6,7 +6,7 @@ import moment from 'moment';
 const Hospitals = () => {
     const [data, setData] = useState([]);
     //find donar records
-    const getHospital = async () => {
+    const getHospital = useCallback(async () => {
         try {
             const { data } = await API.get('/inventory/get-hospital');
             if (data?.success) {
@@ -15,10 +15,10 @@ const Hospitals = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    },[]);
     useEffect(() => {
         getHospital();
-    }, []);
+    }, [getHospital]);
     return (
         <Layout>
             <table className="table">
