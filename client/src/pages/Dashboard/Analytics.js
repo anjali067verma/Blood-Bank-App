@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../../components/shared/Layout/Header';
 import API from '../../services/API';
 import moment from 'moment';
@@ -10,7 +10,7 @@ const Analytics = () => {
     const colors = ['#FFF5E1', '#FF6969', '#C80036', '#EF9C66', '#E9B5D2', '#DF0054', '#FCE2AE', '#FF6666'];
 
     // GET BLOOD GROUP DATA
-    const getBloodGroupData = async () => {
+    const getBloodGroupData = useCallback(async () => {
         try {
             const response = await API.get('/analytics/bloodGroups-data');
             if (response.data?.success) {
@@ -19,15 +19,15 @@ const Analytics = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    },[]);
 
     // Lifecycle method
     useEffect(() => {
         getBloodGroupData();
-    }, []);
+    }, [getBloodGroupData]);
 
     // GET function
-    const getBloodRecords = async () => {
+    const getBloodRecords = useCallback(async () => {
         try {
             const response = await API.get('/inventory/get-recent-inventory');
             if (response.data?.success) {
@@ -36,11 +36,11 @@ const Analytics = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    },[]);
 
     useEffect(() => {
         getBloodRecords();
-    }, []);
+    }, [getBloodRecords]);
 
     return (
         <>
@@ -95,4 +95,3 @@ const Analytics = () => {
 };
 
 export default Analytics;
-
