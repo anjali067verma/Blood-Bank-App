@@ -142,7 +142,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                                         />
                                     )}
                                     <InputType
-                                        labelText={"email"}
+                                        labelText={"Email"}
                                         labelFor={"forEmail"}
                                         inputType={"email"}
                                         name={"email"}
@@ -158,7 +158,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <InputType
-                                        labelText={"website"}
+                                        labelText={"Website"}
                                         labelFor={"forWebsite"}
                                         inputType={"text"}
                                         name={"website"}
