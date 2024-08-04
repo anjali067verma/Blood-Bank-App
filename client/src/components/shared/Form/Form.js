@@ -192,7 +192,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                             <Link to="/register"> Here !</Link>
                         </p>
                     ) : (
-                        <p>Already User Please
+                        <p>Already User! Please
                             <Link to="/login"> Login !</Link>
                         </p>
                     )}
